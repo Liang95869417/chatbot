@@ -1,14 +1,15 @@
 import pymongo
-
+from config import Settings
 
 class DBHandler:
     """Class to handle database connection and updates."""
 
     def __init__(self) -> None:
+        settings = Settings()
         self.myclient = pymongo.MongoClient(
-            "mongodb+srv://msuser:LZANoBO7yJWettwR@mshriek.4bfxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            settings.atlas_uri
         )
-        self.db = self.myclient["hubspotVirtualSDRDev"]
+        self.db = self.myclient[settings.database_name]
         self.col = self.db["profiles"]
 
     def __enter__(self):

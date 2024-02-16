@@ -1,4 +1,3 @@
-import os
 from typing import Union
 from langchain_community.chat_models import ChatOllama
 from langchain_openai import AzureChatOpenAI
@@ -18,13 +17,6 @@ class ChatModelProvider:
 
 
 settings = Settings()
-# azure_model_args = {
-#     "azure_endpoint": "https://intelligestsweeden.openai.azure.com/",
-#     "openai_api_version": "2023-07-01-preview",
-#     "openai_api_key": "788ad89e136d45dc949ef9b84ee0f541",
-#     "openai_api_type": "azure",
-#     "temperature": 0.0,
-# }
 azure_model_args = {
     "azure_endpoint": settings.base_url,
     "openai_api_version": settings.api_key,
