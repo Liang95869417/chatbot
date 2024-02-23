@@ -9,3 +9,8 @@ The Swayle Virtual SDR (Sales Development Representative) Chatbot is an automate
 - **Aspect Evaluation**: Analyzes and suggests improvements for different profile aspects.
 - **Intent Recognition**: Understands user intent to add information or accept current content.
 
+## To run the chatbot:
+
+'''python main.py'''
+
+
