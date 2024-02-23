@@ -4,8 +4,7 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
 )
 from langchain.output_parsers import ResponseSchema, StructuredOutputParser
-from src.llm_providers.chat_model_provider import llm
-from pydantic import BaseModel, Field
+from src.llm_providers.chat_model_provider import llm, llm4
 
 
 response_schemas = [
@@ -14,18 +13,20 @@ response_schemas = [
 output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
 
 
-system_prompt = """Given a user's message, classify the intent as either 'Accept Information' or 'Add More Information'.
+system_prompt = """Refine your analysis of the user's message to accurately identify their intent. Classify the message as 'Accept Information' only if it explicitly expresses satisfaction, approval, or contentment with the current aspect of their profile.
 
-If the user's message indicates satisfaction with the current aspect of the profile, classify it as 'Accept Information'.
+However, treat any message lacking these explicit expressions of satisfaction with caution. Even if the message appears detailed or positive, unless it directly states satisfaction or approval, it may indicate that the user intends to provide additional details or corrections. In such instances, classify the intent as 'Add More Information'.
 
-If the user's message suggests they want to provide additional details or corrections, classify it as 'Add More Information'.
+Your task is to discern the user's intent with precision, considering both explicit affirmations of satisfaction and the potential for implicit cues suggesting the desire to add more information.
 """
-human_prompt = """Determine the intent of the following message:
+
+human_prompt = """Your goal is to determine the intent behind the user's message:
 {user_message}
 
-Is the user accepting the current information or adding more details?
+Is the user expressing acceptance of the current information, or are they providing additional details?
 {format_instructions}
 """
+
 sys_prompt = SystemMessagePromptTemplate.from_template(system_prompt)
 human_message = HumanMessagePromptTemplate.from_template(human_prompt)
 chat_prompt = ChatPromptTemplate.from_messages([sys_prompt, human_message]).partial(

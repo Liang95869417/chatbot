@@ -4,3 +4,5 @@ langchain_openai
 pydantic
 pydantic_settings
 pymongo
+flask
+streamlit

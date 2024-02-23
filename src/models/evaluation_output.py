@@ -1,10 +1,10 @@
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 
 class EvaluationOutput(BaseModel):
     is_satisfied: bool = Field(
-        description="If the aspect of company profile is satisfied or not."
+        description="Whether the current aspect of company profile is satisfied or not based on criteria."
     )
-    Message: str = Field(
-        description="Here is evaluation details.",
+    message: str = Field(
+        description="Here is details about evaluation result.",
     )

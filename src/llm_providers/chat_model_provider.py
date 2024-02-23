@@ -19,9 +19,10 @@ class ChatModelProvider:
 settings = Settings()
 azure_model_args = {
     "azure_endpoint": settings.base_url,
-    "openai_api_version": settings.api_key,
+    "openai_api_version": settings.api_version,
     "openai_api_key": settings.api_key,
     "openai_api_type": settings.api_type,
     "temperature": 0.0,
 }
 llm = ChatModelProvider.get_chat_model("GPT-Turbo", **azure_model_args)
+llm4 = ChatModelProvider.get_chat_model("GPT-4", **azure_model_args)

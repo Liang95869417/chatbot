@@ -5,41 +5,24 @@ from langchain.prompts.chat import (
 )
 from src.models.evaluation_output import EvaluationOutput
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
-from src.llm_providers.chat_model_provider import llm
+from src.llm_providers.chat_model_provider import llm, llm4
 
 
-system_prompt = """You are an analyst to evaluate company use cases based on following criteria. The repsonse should always be polite and to the point.
+system_prompt = """As an analyst, your task is to evaluate customer success stories based on specific criteria. If the details provided are insufficient, please generate hypothetical examples that align with the evaluation criteria or provide guidance on what information is necessary for a comprehensive evaluation.
 
-##Criteria:
-1. Relevance to Target Audience:
-Evaluate how well the use case addresses the specific needs, challenges, or objectives of its intended audience. Consider the directness of the solution to the problem it aims to solve.
+Criteria for Evaluation:
+1. Relevance to Target Audience: Evaluate how well the use case addresses the specific needs, challenges, or objectives of its intended audience.
+2. Clarity of Objectives: Assess the clarity with which the use case presents its objectives.
+3. Solution Effectiveness: Determine the effectiveness of the proposed solution in addressing the problem it aims to solve.
+4. Evidence of Impact: Look for concrete evidence of the solution's impact.
+5. Scalability and Adaptability: Consider the scalability and adaptability of the solution.
+6. Sustainability of Benefits: Evaluate the long-term sustainability of the benefits provided by the solution.
+7. Innovation and Creativity: Assess the level of innovation and creativity demonstrated in the solution.
+8. User Engagement and Experience: Consider how the solution engages its target audience and the quality of the user experience.
+9. Cost-effectiveness: Evaluate the cost-effectiveness of the solution.
+10. Integration and Compatibility: Assess how easily the solution can be integrated into existing systems or processes.
 
-2. Clarity of Objectives:
-Assess the clarity with which the use case presents its objectives. High-quality use cases should clearly define what they aim to achieve, making it easy for the audience to understand the intended outcomes.
-
-3. Solution Effectiveness:
-Determine the effectiveness of the proposed solution or offering within the use case. This involves evaluating how well the solution addresses the problem it is meant to solve, including any innovative approaches or technology it employs.
-
-4. Evidence of Impact:
-Look for concrete evidence of the solution's impact, such as quantitative results, qualitative feedback, case studies, or testimonials. This criterion assesses the real-world application and success of the offering.
-
-5. Scalability and Adaptability:
-Consider the scalability of the solution—its ability to be applied to different scales of operation or to be adapted for various contexts or needs. This includes evaluating how the use case might be relevant for different sizes of companies, sectors, or geographical locations.
-
-6. Sustainability of Benefits:
-Evaluate the long-term sustainability of the benefits provided by the solution. This includes considering whether the solution contributes to ongoing improvements, addresses root causes, and promotes positive long-term outcomes.
-
-7. Innovation and Creativity:
-Assess the level of innovation and creativity demonstrated in the solution. Innovative solutions may offer new approaches to old problems, employ cutting-edge technology, or introduce novel processes that enhance effectiveness.
-
-8. User Engagement and Experience:
-Consider how the solution engages its target audience and the quality of the user experience. This includes ease of use, interaction design, and how the solution meets user expectations or preferences.
-
-9. Cost-effectiveness:
-Evaluate the cost-effectiveness of the solution, considering both the initial investment and any ongoing costs relative to the benefits and value it delivers.
-
-10. Integration and Compatibility:
-Assess how easily the solution can be integrated into existing systems or processes and its compatibility with other tools or services. This includes considering any technical or operational challenges in implementation.
+Please provide detailed responses addressing each of these criteria for a comprehensive evaluation of customer success stories. If necessary, create hypothetical scenarios that align with the criteria or offer guidance on the information needed for a thorough assessment.
 """
 human_prompt = """Evaluate the following offerings: 
 {offerings}
