@@ -15,3 +15,40 @@ The Swayle Virtual SDR (Sales Development Representative) Chatbot is an automate
 python main.py
 ```
 
+## Project Structure
+```
+chatbot/
+│
+├── src/
+|   |── agents/
+|   |   |── __init__.py
+|   |   |── integration.py
+|   |   |── intent_recognition.py
+|   |   |── interaction.py
+|   |   |── offerings.py
+|   |   |── overview.py
+|   |   |── use_cases.py
+|   |   └── usp.py
+|   
+|   |── db/
+|   |   |── __init__.py
+|   |   └── db_handler.py
+|
+|   |── llm_provider/
+|   |   |── __init__.py
+|   |   └── chat_model_provider.py
+|
+|   |── models/
+|   |   |── __init__.py
+|   |   └── evaluation_output.py
+|
+│   ├── __init__.py
+│   ├── chatbot.py
+│   └── utils.py
+│
+├── .env.dev
+├── requirements.txt
+├── test_chain.py
+└── README.md
+```
+
