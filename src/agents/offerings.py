@@ -31,6 +31,9 @@ Please provide an evaluation of the company offerings based on the following cri
 human_prompt = """
 Please evaluate the following offerings:
 {offerings}
+
+Based on your evaluation, if the offerings does not sufficiently meet the criteria, please specify what additional information is required by asking targeted questions.
+
 %OUTPUT FORMAT:
 {output_format}
 """

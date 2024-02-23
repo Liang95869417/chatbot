@@ -20,8 +20,11 @@ S7. calability: Consider how well the USP can be expanded or adjusted as the com
 
 Your analysis should pinpoint areas for enhancement or further development in the company's strategy, while maintaining a respectful and concise manner.
 """
-human_prompt = """Evaluate the following offerings: 
+human_prompt = """Evaluate the following unique selling points: 
 {unique_selling_points}
+
+Based on your evaluation, if the unique selling points does not sufficiently meet the criteria, please specify what additional information is required by asking targeted questions.
+
 %OUTPUT FORMAT:
 {output_format}
 """

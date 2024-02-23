@@ -24,8 +24,11 @@ Criteria for Evaluation:
 
 Please provide detailed responses addressing each of these criteria for a comprehensive evaluation of customer success stories. If necessary, create hypothetical scenarios that align with the criteria or offer guidance on the information needed for a thorough assessment.
 """
-human_prompt = """Evaluate the following offerings: 
-{offerings}
+human_prompt = """Evaluate the following customer success stories : 
+{customer_success_stories}
+
+Based on your evaluation, if the customer success stories does not sufficiently meet the criteria, please specify what additional information is required by asking targeted questions.
+
 %OUTPUT FORMAT:
 {output_format}
 """

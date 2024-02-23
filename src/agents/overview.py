@@ -8,15 +8,16 @@ from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from src.llm_providers.chat_model_provider import llm, llm4
 
 
-system_prompt = "As an analyst, your task is to assess the given general overview based on the specified criteria."
-human_prompt = """Please evaluate the general overview according to the following criteria:
+system_prompt = """As an analyst, your task is to assess the given general overview based on the following criteria.
+
 % Criteria:
 - Obtain fundamental information about the company, which may include its name, industry, products or services, unique attributes, target market, and notable achievements or innovations.
-
-Based on your evaluation, if the overview does not sufficiently meet the criteria, please specify what additional information is required by asking targeted questions.
-
+"""
+human_prompt = """
 % Here is General Overview to evaluate:
 {general_overview}
+
+Based on your evaluation, if the overview does not sufficiently meet the criteria, please specify what additional information is required by asking targeted questions.
 
 % OUTPUT FORMAT:
 {output_format}
