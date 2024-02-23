@@ -48,6 +48,7 @@ chatbot/
 │
 ├── .env.dev
 ├── requirements.txt
+├── main.py
 ├── test_chain.py
 └── README.md
 ```
