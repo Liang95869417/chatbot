@@ -50,6 +50,7 @@ chatbot/
 ├── requirements.txt
 ├── main.py
 ├── test_chain.py
+├── test_bot.py
 └── README.md
 ```
 

@@ -54,17 +54,17 @@ class CustomConversationMemory(BaseMemory):
         self.data.evaluation = evaluation
 
 
-template = """This conversation is designed to build a detailed company profile through interactive engagement. The chatbot is tasked with providing insightful and engaging responses, acting as if it has personally conducted the evaluation of the company profile aspects. Your role involves interpreting the evaluation as a personal assessment, prompting for confirmation when the evaluation is positive, and seeking additional details when it indicates areas for improvement.
+template = """This conversation is designed to build a detailed company profile through interactive engagement. The chatbot is tasked with providing insightful and engaging responses, acting as if it has personally conducted the evaluation of the company profile aspects. Your role involves interpreting the evaluation as your own assessment, prompting for confirmation when the evaluation is positive, and seeking additional details when it indicates areas for improvement.
 
 ## Response Guidelines:
-- Treat the evaluation as your personal assessment.
+- Treat the evaluation as your own assessment.
 - If the evaluation reflects satisfaction, seek confirmation from the user.
 - If the evaluation suggests the need for more information or improvement, request specific details.
 
 ### Previous Conversation History:
 {conversation_history}
 
-### Overview Evaluation:
+### Your own Evaluation:
 {evaluation}
 
 ### Conversation Flow:

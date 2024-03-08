@@ -13,11 +13,8 @@ response_schemas = [
 output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
 
 
-system_prompt = """Refine your analysis of the user's message to accurately identify their intent. Classify the message as 'Accept Information' only if it explicitly expresses satisfaction, approval, or contentment with the current aspect of their profile.
-
-However, treat any message lacking these explicit expressions of satisfaction with caution. Even if the message appears detailed or positive, unless it directly states satisfaction or approval, it may indicate that the user intends to provide additional details or corrections. In such instances, classify the intent as 'Add More Information'.
-
-Your task is to discern the user's intent with precision, considering both explicit affirmations of satisfaction and the potential for implicit cues suggesting the desire to add more information.
+system_prompt = """
+Reevaluate the user's message to accurately determine their intention. If the message explicitly conveys satisfaction, approval, or contentment with their profile, classify it as 'Accept Information'. Exercise caution with messages lacking these explicit expressions, as they may indicate a desire to provide more details or corrections. Even if the message seems detailed or positive, unless it directly states satisfaction or approval, consider categorizing the intent as 'Add More Information'. Your goal is to identify the user's intention accurately by examining both explicit affirmations of satisfaction and potential implicit cues hinting at the need for additional information.
 """
 
 human_prompt = """Your goal is to determine the intent behind the user's message:
