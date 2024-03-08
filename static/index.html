@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Swayle Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/botui@0.3.9/build/botui.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/botui@0.3.9/build/botui-theme-default.css" />
+    <style>
+      html, body {
+        background-color: #41c0cc;
+        background-image: linear-gradient(-90deg, #41c0cc, #41cca5);
+      }
+
+      .botui-container {
+        background-color: inherit;
+      }
+
+      .botui-messages-container .botui-message-content {
+        font-size: 18px; /* Adjust the size as needed */
+        overflow-y: auto;
+        flex-grow: 1;
+        }
+
+        .botui-actions-container .botui-action-text input {
+        font-size: 18px; /* Adjust the size as needed */
+        margin: 10px;
+    }
+
+        .botui-message {
+        width: 70%; /* Reduce width to bring messages closer to center */
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+      .botui-message-content.text {
+        background-color: #e1fafc;
+        color: #404040;
+      }
+
+      .botui-message-content.human {
+        background-color: #f7ff61;
+        color: #404040;
+      }
+
+      .botui-actions-container {
+    display: flex;
+    justify-content: center; /* Center the container */
+    }
+
+      .botui-actions-container .botui-action {
+        width: 100%; /* Adjust the width as needed, e.g., 50% to make it narrower */
+        max-width: 600px; /* Maximum width, adjust as needed */
+        }
+
+      button.botui-actions-buttons-button {
+        margin-top: 0px;
+      }
+    </style>
+</head>
+<body>
+    <div id="botui-app">
+        <bot-ui></bot-ui>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/botui@0.3.9/build/botui.min.js"></script>
+    <script src="js/chat.js"></script> 
+</body>
+</html>

@@ -2,11 +2,26 @@ import uvicorn
 from src.chatbot_api import Chatbot
 from fastapi import FastAPI, HTTPException, Body, Path
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+
 
 class UserInput(BaseModel):
     user_input: str
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 chatbot_sessions = {}
 
 @app.post("/start/{company_name}")

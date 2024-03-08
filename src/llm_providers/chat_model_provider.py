@@ -11,7 +11,7 @@ class ChatModelProvider:
         model_name: str, **model_kwargs
     ) -> Union[ChatOllama, AzureChatOpenAI]:
         if model_name in ["GPT-Turbo", "GPT-4", "GPT-35-turbo-16k", "GPT-4-Turbo"]:
-            if os.environ["FASTAPI_ENVIRONMENT"] == "dev":
+            if os.environ["FASTAPI_ENVIRONMENT"] == "prod":
                 return AzureChatOpenAI(**model_kwargs, deployment_name="GPT-Turbo")
             else:
                 return AzureChatOpenAI(**model_kwargs, deployment_name=model_name)
@@ -31,5 +31,5 @@ if os.environ["FASTAPI_ENVIRONMENT"] == "dev":
     llm = ChatModelProvider.get_chat_model("GPT-Turbo", **azure_model_args)
     llm4 = ChatModelProvider.get_chat_model("GPT-4", **azure_model_args)
 else:
-    llm = ChatModelProvider.get_chat_model("GPT-Turbo", **azure_model_args)
+    llm = ChatModelProvider.get_chat_model("GPT-4", **azure_model_args)
     llm4 = ChatModelProvider.get_chat_model("GPT-4", **azure_model_args)
