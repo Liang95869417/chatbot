@@ -27,11 +27,19 @@ class Chatbot:
         """
         self.company_name = company_name
         self.company_profile = self.get_company_profile(company_name)
-        self.aspects = {
-            "general_overview": get_aspect(self.company_profile, "general_overview"),
-            "offerings": get_aspect(self.company_profile, "offerings"),
-            "unique_selling_points": get_aspect(self.company_profile, "unique_selling_points"),
-            "customer_success_stories": get_aspect(self.company_profile, "customer_success_stories"),
+        
+        self.aspects = self.get_formated_aspects()
+
+    def get_formated_aspects(self):
+        general_overview = get_aspect(self.company_profile, "general_overview")
+        offerings = get_aspect(self.company_profile, "offerings")
+        unique_selling_points = get_aspect(self.company_profile, "unique_selling_points")
+        customer_success_stories = get_aspect(self.company_profile, "customer_success_stories")
+        return {
+            "general_overview": general_overview,
+            "offerings": "\n".join([f"{p['product']}: {p['description']}" for p in offerings]),
+            "unique_selling_points": "\n".join(unique_selling_points),
+            "customer_success_stories": "\n".join(customer_success_stories),
         }
 
     def get_company_profile(self, company_name: str) -> dict:
@@ -114,7 +122,7 @@ class Chatbot:
         into the profile refinement process.
         """
         greeting = """
-I am the Virtual SDR from Market Shriek, dedicated to assisting you in crafting your company profile. To facilitate this process, we have already prepared a preliminary draft for you, utilizing the publicly available information from your website.
+I am the Chatbot from Swayle, dedicated to assisting you in crafting your company profile. To facilitate this process, we have already prepared a preliminary draft for you, utilizing the publicly available information from your website.
 
 For clarity and comprehensiveness, we've organized the profile into four main sections:
 

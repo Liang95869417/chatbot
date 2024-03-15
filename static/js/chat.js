@@ -36,14 +36,40 @@ function startInteractionWithCompany(companyName) {
   })
     .then((response) => response.json())
     .then((data) => {
-      // Replace \n with <br> for HTML display
-      var formattedMessage = data.message.replace(/\n/g, "<br>");
-      // Display the initial greeting and response from the chatbot
-      botui.message.add({
-        type: "html", // Specify the message type as HTML
-        content: formattedMessage,
-      });
-      askQuestion(companyName); // Proceed with asking questions and further interaction
+      // Display the initial greeting from the chatbot as HTML
+      var greeting = data.greeting.replace(/\n/g, "<br>");
+      botui.message
+        .add({
+          type: "html",
+          content: greeting,
+        })
+        .then(() => {
+          // Insert an action here: a button that the user can click to get the first response
+          return botui.action.button({
+            action: [
+              {
+                text: "Let's Start!",
+                value: "show_first_response",
+              },
+            ],
+          });
+        })
+        .then((res) => {
+          // Check the action's value to decide what to do next
+          if (res.value === "show_first_response") {
+            // Replace \n with <br> for HTML display in the first response
+            var first_response = data.first_response.replace(/\n/g, "<br>");
+            // Display the first response as HTML
+            return botui.message.add({
+              type: "html",
+              content: first_response,
+            });
+          }
+        })
+        .then(() => {
+          // After showing the first response, proceed with asking questions and further interaction
+          askQuestion(companyName);
+        });
     })
     .catch((error) => {
       console.error("Error:", error);

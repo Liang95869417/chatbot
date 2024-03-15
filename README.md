@@ -14,6 +14,7 @@ The Swayle Virtual SDR (Sales Development Representative) Chatbot is an automate
 ```
 python main.py
 ```
+And then go to http://localhost:8000/static/index.html to chat.
 
 ## Project Structure
 ```

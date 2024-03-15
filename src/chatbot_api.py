@@ -127,13 +127,13 @@ class Chatbot:
         evaluation = self.evaluate_aspect(self.current_aspect, str(aspect_value))
         interaction_chain.memory.set_evaluation(evaluation)
         interaction = interaction_chain.invoke(input=user_input)
-        return f"Here is the current {self.current_aspect}: \n{str(aspect_value)}\n" + interaction["response"]
+        return f"Here is the current {self.current_aspect}: \n{str(aspect_value)}\n\n" + interaction["response"]
 
 
     @staticmethod
     def get_greeting():
         greeting = """
-        I am the Virtual SDR from Market Shriek, dedicated to assisting you in crafting your company profile. To facilitate this process, we have already prepared a preliminary draft for you, utilizing the publicly available information from your website.
+        I am the Chatbot from Swayle, dedicated to assisting you in crafting your company profile. To facilitate this process, we have already prepared a preliminary draft for you, utilizing the publicly available information from your website.
 
         For clarity and comprehensiveness, we've organized the profile into four main sections:
 

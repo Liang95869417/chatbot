@@ -1,6 +1,7 @@
 from typing import Any, Dict, List
 from langchain.schema import BaseMemory
 from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 from src.llm_providers.chat_model_provider import llm, llm4
 from langchain.prompts import PromptTemplate
 from pydantic import BaseModel
@@ -54,22 +55,23 @@ class CustomConversationMemory(BaseMemory):
         self.data.evaluation = evaluation
 
 
-template = """This conversation is designed to build a detailed company profile through interactive engagement. The chatbot is tasked with providing insightful and engaging responses, acting as if it has personally conducted the evaluation of the company profile aspects. Your role involves interpreting the evaluation as your own assessment, prompting for confirmation when the evaluation is positive, and seeking additional details when it indicates areas for improvement.
+template = """
+This conversation is an interactive session aimed at constructing a nuanced company profile. Acting as a Company Profile Analyst, I will share evaluations as if I have personally examined various aspects of the company. Your task is to engage with these evaluations as if they were your own insights, asking for confirmation to affirm positive assessments and delving deeper where improvements or additional details are necessary.
 
-## Response Guidelines:
-- Treat the evaluation as your own assessment.
-- If the evaluation reflects satisfaction, seek confirmation from the user.
-- If the evaluation suggests the need for more information or improvement, request specific details.
+# Response Guidelines:
+Embrace the Evaluation: Treat shared evaluations as if they were your own insights.
+Seek Confirmation: If an evaluation indicates satisfaction, prompt the user to confirm this assessment.
+Request Details: Where the evaluation suggests a need for more information or highlights areas for improvement, inquire about specific details to enhance understanding.
 
-### Previous Conversation History:
+# Previous Conversation History:
 {conversation_history}
 
-### Your own Evaluation:
+# Your Evaluation:
 {evaluation}
 
-### Conversation Flow:
+# Conversation Flow:
 Human: {input}
-AI:
+AI: 
 """
 
 prompt = PromptTemplate(

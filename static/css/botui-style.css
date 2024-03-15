@@ -1,0 +1,50 @@
+html, body {
+    background-color: #41c0cc;
+    background-image: linear-gradient(-90deg, #41c0cc, #41cca5);
+  }
+  
+  .botui-container {
+    background-color: inherit;
+  }
+  
+  .botui-messages-container .botui-message-content {
+    font-size: 14px; /* Adjust the size as needed */
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  
+  .botui-actions-container .botui-action-text input {
+    font-size: 18px; /* Adjust the size as needed */
+    margin: 10px;
+  }
+  
+  .botui-message {
+    width: 70%; /* Reduce width to bring messages closer to center */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .botui-message-content.text {
+    background-color: #e1fafc;
+    color: #404040;
+  }
+  
+  .botui-message-content.human {
+    background-color: #f7ff61;
+    color: #404040;
+  }
+  
+  .botui-actions-container {
+    display: flex;
+    justify-content: center; /* Center the container */
+  }
+  
+  .botui-actions-container .botui-action {
+    width: 100%; /* Adjust the width as needed, e.g., 50% to make it narrower */
+    max-width: 600px; /* Maximum width, adjust as needed */
+  }
+  
+  button.botui-actions-buttons-button {
+    margin-top: 0px;
+  }
+  

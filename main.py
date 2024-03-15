@@ -24,6 +24,10 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 chatbot_sessions = {}
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/start/{company_name}")
 async def start_interaction(company_name: str):
     # Initialize the Chatbot instance
@@ -32,7 +36,7 @@ async def start_interaction(company_name: str):
     # Send the greeting and the first aspect to review
     greeting = chatbot.get_greeting()
     first_response = chatbot.run()
-    return {"message": f"{greeting}\n{first_response}"}
+    return {"greeting": greeting, "first_response": first_response}
 
 @app.post("/interact/{company_name}", summary="Process user interaction with the chatbot",
           description="This endpoint processes user inputs and returns the chatbot's response.")
