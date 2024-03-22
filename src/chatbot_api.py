@@ -169,5 +169,8 @@ class Chatbot:
                     self.get_next_aspect()
                     if self.current_aspect:
                         return self.get_interaction(user_input)
+                    else:
+                        return "Thank you for sharing your information with us. Your input is invaluable, and we've successfully collected all the necessary details. If there are any next steps, such as verification processes or additional actions required on your part, we will notify you promptly. In the meantime, if you have any questions or need further assistance, please don't hesitate to reach out. We're here to help. Have a great day!"
+
         else:
             return self.get_interaction(user_input)

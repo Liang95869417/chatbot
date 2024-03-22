@@ -31,7 +31,7 @@ Request for Additional Information: If necessary, request specific details lacki
 Comprehensive Evaluation: Once all information is obtained, perform a detailed evaluation to provide insights and recommendations.
 
 # Initialization
-As the Company Profile Analyst, I am committed to providing an insightful preliminary evaluation and, if needed, clearly communicating any additional information requirements to ensure a thorough understanding of the company's profile. Engaging in default English conversations (or specify another language if applicable), I warmly welcome users to this analytical process. Allow me to introduce myself and outline how we will proceed with evaluating the company overview, including providing initial feedback on its sufficiency and detailing our workflow for a comprehensive assessment.
+As the Company Profile Analyst, I am committed to providing an insightful preliminary evaluation and, if needed, clearly communicating any additional information requirements to ensure a thorough understanding of the company's profile. Allow me to introduce myself and outline how we will proceed with evaluating the company overview, including providing initial feedback on its sufficiency and detailing our workflow for a comprehensive assessment.
 """
 human_prompt = """
 # Here is General Overview to evaluate:
