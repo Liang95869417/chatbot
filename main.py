@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 class UserInput(BaseModel):
     user_input: str
+    user_intent: str
 
 app = FastAPI()
 
@@ -45,8 +46,9 @@ async def process_user_input(
     user_input: UserInput = Body(..., description="User input to be processed by the chatbot")):
     if company_name not in chatbot_sessions:
         raise HTTPException(status_code=404, detail="Session not found.")
+    
     chatbot: Chatbot = chatbot_sessions[company_name]
-    response = chatbot.run(user_input.user_input)
+    response = chatbot.run(user_input.user_intent, user_input.user_input)
     return {"message": response}
 
 

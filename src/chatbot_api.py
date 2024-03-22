@@ -36,6 +36,7 @@ class Chatbot:
         }
         self.current_aspect = self.aspect_order[0]
         self.current_index = 0
+        self.first_interaction_done = False
 
     def get_company_profile(self, company_name: str) -> dict:
         """
@@ -91,33 +92,23 @@ class Chatbot:
         else:
             return {"error": "Invalid aspect provided."}
         
-    def process_intent(self, user_input: str) -> Optional[bool]:
+    def handle_intent(self, intent: str, user_input: str) -> None:
         """
-        Processes the user's input to understand their intent regarding a specific aspect of
-        the company profile. Based on the recognized intent, it may update the aspect content,
-        accept the provided information, or handle unrecognized intents.
-
-        Parameters:
-            user_input (str): The input from the user concerning the current aspect.
-
-        Returns:
-            tuple: A tuple containing the (potentially updated) aspect content and a boolean flag
-                indicating whether to continue refining this aspect (True) or move to the next one (False).
-                If the intent is unrecognized, returns the current aspect content and None.
-        """      
-        intent = intent_recognition_chain.invoke({"user_message": user_input})
-        print("Intent:", intent)
-        if intent["intent"] == "Add More Information":
+        Directly handles explicit user intents such as adding, removing, or accepting information.
+        """
+        if intent in ["Add Information", "Remove Information"]:
             updated_aspect = integration_chain.invoke(
-                {"aspect": self.current_aspect, "add_info": user_input}
+                {"aspect": self.current_aspect, 
+                 "update_info": user_input,
+                 "update_mode": intent}
             )
-            self.aspects[self.current_aspect] = updated_aspect  # Update the aspect in the class state
-            return True
-        elif intent["intent"] == "Accept Information":
-            return False
+            self.aspects[self.current_aspect] = updated_aspect
+        elif intent == "Accept Information":
+            # No additional action needed if information is accepted
+            self.update_profile_aspect()
+            self.get_next_aspect()
         else:
             print("Unrecognized intent!!")
-            return None
         
     def get_interaction(self, user_input: str) -> str:
         """
@@ -155,22 +146,15 @@ class Chatbot:
             db_handler.update_company_profile(self.company_name, updates)
         interaction_chain.memory.clear()  # Clear interaction chain memory after update
 
-    def run(self, user_input: str = "") -> str:
+    def run(self, intent: Optional[str] = None, user_input: str = "") -> str:
         """
-        Main method to process user input for a given aspect and generate a response.
+        Main method to process explicit user intents for a given aspect and generate a response.
+        If it's the first interaction, it will simply return the current aspect and its evaluation.
         """
-        if user_input:
-            should_continue = self.process_intent(user_input)
-            if should_continue is not None:
-                if should_continue:
-                    return self.get_interaction(user_input)
-                else:
-                    self.update_profile_aspect()  # Update the database when aspect refinement is done
-                    self.get_next_aspect()
-                    if self.current_aspect:
-                        return self.get_interaction(user_input)
-                    else:
-                        return "Thank you for sharing your information with us. Your input is invaluable, and we've successfully collected all the necessary details. If there are any next steps, such as verification processes or additional actions required on your part, we will notify you promptly. In the meantime, if you have any questions or need further assistance, please don't hesitate to reach out. We're here to help. Have a great day!"
-
+        if not self.first_interaction_done:
+            self.first_interaction_done = True
+            return self.get_interaction(user_input)
         else:
+            if intent:
+                self.handle_intent(intent, user_input)
             return self.get_interaction(user_input)
