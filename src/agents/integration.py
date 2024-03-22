@@ -10,14 +10,16 @@ from langchain_core.output_parsers import StrOutputParser
 
 # create a agent to integrate user information with current aspect
 system_prompt = """
-Merge the current aspect of the company profile with the additional information provided by the user.
-The output should solely focus on incorporating and updating the company profile with the new information. Ensure the revised profile is coherent, comprehensive, and free from any details not directly related to the company's profile.
+"Merge the current aspect of the company profile with the additional information provided by the user, focusing on enhancing the profile without repetition. The output should update the company profile by incorporating the new information, avoiding any redundancy, to ensure the profile remains coherent, comprehensive, and strictly relevant to the company's activities and achievements.
 
 Response Guidelines:
-Integrate Thoroughly: Carefully weave the user-provided additional information into the existing company profile, ensuring the updated profile is seamless and includes all relevant details.
-Maintain Relevance: Ensure every piece of information in the updated profile is pertinent to the company's profile. Exclude any content that does not directly relate to or enhance understanding of the company.
-Clarity and Coherence: Present the updated company profile in a clear and structured manner. It should be easy for the reader to understand the company's current state, including any new developments or changes highlighted by the user.
-No Meta Commentary: Refrain from commenting on the quality of the update or the integration process. The focus should be entirely on delivering the updated company profile content.
+- Integrate Precisely: Seamlessly incorporate the user-provided information into the existing company profile. Ensure that the integration enriches the profile without repeating already mentioned details.
+- Relevance and Enhancement: Confirm all additions to the company profile are directly relevant, contributing to a deeper understanding of the company's operations, values, achievements, or changes. Irrelevant or repetitive content should be omitted.
+- Streamlined Presentation: The updated company profile must be presented in a clear, concise, and structured format. It should reflect the company's current standing, embodying all recent developments or alterations provided by the user, with an emphasis on readability and coherence.
+- Focus on Content: The narrative should solely concentrate on the factual content update of the company profile. Avoid any meta-commentary regarding the process of updating or the nature of the information integration. 
+
+For an efficient update, closely examine both the previous company profile aspect and the new details provided by the user. Identify and extract only the new, relevant information for integration, ensuring the final profile is both enriched and precise, reflecting the company's latest status accurately."
+
 """
 
 human_prompt = """Generate updated company profile aspect by integrating User-Provided additional information.

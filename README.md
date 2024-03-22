@@ -16,6 +16,9 @@ python main.py
 ```
 And then go to http://localhost:8000/static/index.html to chat.
 
+## Instruction
+User intent sometimes work unexpectedly. Please Add prompt "I accept the current profile" or "I want to add more information" before the input.
+
 ## Project Structure
 ```
 chatbot/
