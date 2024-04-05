@@ -14,7 +14,7 @@ The Swayle Chatbot is an automated system designed to assist companies in crafti
 ```
 python main.py
 ```
-And then go to http://localhost:8000/static/index.html to chat.
+And then go to http://localhost:8000/templates/index.html to chat.
 
 ## Instruction
 User intent sometimes work unexpectedly. Please Add prompt "I accept the current profile" or "I want to add more information" before the input.
