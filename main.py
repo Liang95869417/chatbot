@@ -35,8 +35,8 @@ async def start_interaction(company_name: str):
     chatbot_sessions[company_name] = chatbot
     # Send the greeting and the first aspect to review
     greeting = chatbot.get_greeting()
-    first_response = chatbot.run()
-    return {"greeting": greeting, "first_response": first_response}
+    aspect, chat_response = chatbot.run()
+    return {"greeting": greeting, "aspect": aspect, "chat_response": chat_response}
 
 @app.post("/interact/{company_name}", summary="Process user interaction with the chatbot",
           description="This endpoint processes user inputs and returns the chatbot's response.")
@@ -46,8 +46,8 @@ async def process_user_input(
     if company_name not in chatbot_sessions:
         raise HTTPException(status_code=404, detail="Session not found.")
     chatbot: Chatbot = chatbot_sessions[company_name]
-    response = chatbot.run(user_input.user_input)
-    return {"message": response}
+    aspect, chat_response = chatbot.run(user_input.user_input)
+    return {"aspect": aspect, "chat_response": chat_response}
 
 
 if __name__ == "__main__":

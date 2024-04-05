@@ -58,12 +58,21 @@ function startInteractionWithCompany(companyName) {
           // Check the action's value to decide what to do next
           if (res.value === "show_first_response") {
             // Replace \n with <br> for HTML display in the first response
-            var first_response = data.first_response.replace(/\n/g, "<br>");
-            // Display the first response as HTML
-            return botui.message.add({
-              type: "html",
-              content: first_response,
-            });
+            var aspect = data.aspect.replace(/\n/g, "<br>");
+            var chat_response = data.chat_response.replace(/\n/g, "<br>");
+            // Display the 'aspect' as HTML in its own bubble
+            return botui.message
+              .add({
+                type: "html",
+                content: aspect,
+              })
+              .then(() => {
+                // After displaying the 'aspect', display the 'chat_response' in a new bubble
+                return botui.message.add({
+                  type: "html",
+                  content: chat_response,
+                });
+              });
           }
         })
         .then(() => {
@@ -93,11 +102,20 @@ function sendMessage(message, companyName) {
     .then((response) => response.json())
     .then((data) => {
       // Replace newline characters with HTML line breaks before displaying
-      var formattedMessage = data.message.replace(/\n/g, "<br>");
-      botui.message.add({
-        type: "html", // Specify the message type as HTML
-        content: formattedMessage,
-      });
+      var aspect = data.aspect.replace(/\n/g, "<br>");
+      var chat_response = data.chat_response.replace(/\n/g, "<br>");
+      botui.message
+        .add({
+          type: "html", // Specify the message type as HTML
+          content: aspect,
+        })
+        .then(() => {
+          // After displaying the 'aspect', display the 'chat_response' in a new bubble
+          return botui.message.add({
+            type: "html",
+            content: chat_response,
+          });
+        });
       askQuestion(companyName); // Keep asking for user input
     })
     .catch((error) => {

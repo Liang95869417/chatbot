@@ -127,7 +127,7 @@ class Chatbot:
         evaluation = self.evaluate_aspect(self.current_aspect, str(aspect_value))
         interaction_chain.memory.set_evaluation(evaluation)
         interaction = interaction_chain.invoke(input=user_input)
-        return f"Here is the current {self.current_aspect}: \n{str(aspect_value)}\n\n" + interaction["response"]
+        return f"Here is the current {self.current_aspect}: \n{str(aspect_value)}\n\n", interaction["response"]
 
 
     @staticmethod
