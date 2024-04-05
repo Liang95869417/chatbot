@@ -28,24 +28,24 @@ chatbot_sessions = {}
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/start/{company_name}")
-async def start_interaction(company_name: str):
+@app.post("/start/{company_domain}")
+async def start_interaction(company_domain: str):
     # Initialize the Chatbot instance
-    chatbot = Chatbot(company_name)
-    chatbot_sessions[company_name] = chatbot
+    chatbot = Chatbot(company_domain)
+    chatbot_sessions[company_domain] = chatbot
     # Send the greeting and the first aspect to review
     greeting = chatbot.get_greeting()
     aspect, chat_response = chatbot.run()
     return {"greeting": greeting, "aspect": aspect, "chat_response": chat_response}
 
-@app.post("/interact/{company_name}", summary="Process user interaction with the chatbot",
+@app.post("/interact/{company_domain}", summary="Process user interaction with the chatbot",
           description="This endpoint processes user inputs and returns the chatbot's response.")
 async def process_user_input(
-    company_name: str = Path(..., description="The name of the company to interact with"),
+    company_domain: str = Path(..., description="The name of the company to interact with"),
     user_input: UserInput = Body(..., description="User input to be processed by the chatbot")):
-    if company_name not in chatbot_sessions:
+    if company_domain not in chatbot_sessions:
         raise HTTPException(status_code=404, detail="Session not found.")
-    chatbot: Chatbot = chatbot_sessions[company_name]
+    chatbot: Chatbot = chatbot_sessions[company_domain]
     aspect, chat_response = chatbot.run(user_input.user_input)
     return {"aspect": aspect, "chat_response": chat_response}
 

@@ -8,12 +8,12 @@ function startConversation() {
         "Welcome to our chat service! Before we begin, could you please tell me the name of your company?",
     })
     .then(function () {
-      askCompanyName(); // Prompt the user for the company name
+      askCompanyDomain(); // Prompt the user for the company name
     });
 }
 
 // Function to prompt the user for the company name
-function askCompanyName() {
+function askCompanyDomain() {
   botui.action
     .text({
       action: {
@@ -21,14 +21,14 @@ function askCompanyName() {
       },
     })
     .then(function (res) {
-      var companyName = res.value; // Capture the company name
-      startInteractionWithCompany(companyName); // Start the interaction
+      var companyDomain = res.value; // Capture the company name
+      startInteractionWithCompany(companyDomain); // Start the interaction
     });
 }
 
-// Function to start interaction with the company by making a request to /start/{company_name}
-function startInteractionWithCompany(companyName) {
-  fetch(`/start/${companyName}`, {
+// Function to start interaction with the company by making a request to /start/{company_domain}
+function startInteractionWithCompany(companyDomain) {
+  fetch(`/start/${companyDomain}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function startInteractionWithCompany(companyName) {
         })
         .then(() => {
           // After showing the first response, proceed with asking questions and further interaction
-          askQuestion(companyName);
+          askQuestion(companyDomain);
         });
     })
     .catch((error) => {
@@ -88,9 +88,9 @@ function startInteractionWithCompany(companyName) {
     });
 }
 
-// Function to send messages to the FastAPI backend and handle responses, now includes companyName parameter
-function sendMessage(message, companyName) {
-  var url = `/interact/${companyName}`; // Use company name in the URL
+// Function to send messages to the FastAPI backend and handle responses, now includes companyDomain parameter
+function sendMessage(message, companyDomain) {
+  var url = `/interact/${companyDomain}`; // Use company name in the URL
 
   fetch(url, {
     method: "POST",
@@ -116,19 +116,19 @@ function sendMessage(message, companyName) {
             content: chat_response,
           });
         });
-      askQuestion(companyName); // Keep asking for user input
+      askQuestion(companyDomain); // Keep asking for user input
     })
     .catch((error) => {
       console.error("Error:", error);
       botui.message.add({
         content: "An error occurred. Please try again.",
       });
-      askQuestion(companyName); // Attempt to recover by asking for input again
+      askQuestion(companyDomain); // Attempt to recover by asking for input again
     });
 }
 
-// Modified to accept companyName as a parameter
-function askQuestion(companyName) {
+// Modified to accept companyDomain as a parameter
+function askQuestion(companyDomain) {
   botui.action
     .text({
       action: {
@@ -136,7 +136,7 @@ function askQuestion(companyName) {
       },
     })
     .then(function (res) {
-      sendMessage(res.value, companyName); // Send user input to the backend with the company name
+      sendMessage(res.value, companyDomain); // Send user input to the backend with the company name
     });
 }
 

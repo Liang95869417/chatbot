@@ -9,9 +9,9 @@ from src.db.db_handler import DBHandler
 from src.utils import get_aspect
 
 
-def get_company_profile(company_name):
+def get_company_profile(company_domain):
     with DBHandler() as db_handler:
-        company_profile = db_handler.get_company_profile(company_name)
+        company_profile = db_handler.get_company_profile(company_domain)
     return company_profile
 
 
@@ -42,8 +42,8 @@ def process_intent(user_input, current_aspect):
 
 
 def main():
-    company_name = "Defigo"
-    company_profile = get_company_profile(company_name)
+    company_domain = "Defigo"
+    company_profile = get_company_profile(company_domain)
     aspects = {
         "general_overview": get_aspect(company_profile, "general_overview"),
         "offerings": get_aspect(company_profile, "offerings"),
@@ -96,7 +96,7 @@ Let's begin with the General Overview to confirm that every detail accurately re
                 # Save and proceed to next aspect or conclude
                 with DBHandler() as db_handler:
                     updates = {aspect: value}
-                    db_handler.update_company_profile(company_name, updates)
+                    db_handler.update_company_profile(company_domain, updates)
                 interaction_chain.memory.clear()
                 break
 

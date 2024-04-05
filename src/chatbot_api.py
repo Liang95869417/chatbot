@@ -16,14 +16,14 @@ class Chatbot:
     company profile based on publicly available information and facilitates iterative
     refinement through user interaction.
     """
-    def __init__(self, company_name:str):
+    def __init__(self, company_domain:str):
         """
         Initializes the Chatbot instance with a specific company name, retrieves the
         company's profile from the database, and sets up the initial aspects of the profile
         for review and refinement.
         """
-        self.company_name = company_name
-        self.company_profile = self.get_company_profile(company_name)
+        self.company_domain = company_domain
+        self.company_profile = self.get_company_profile(company_domain)
         self.aspect_order = [
             "general_overview",
             "offerings",
@@ -37,20 +37,20 @@ class Chatbot:
         self.current_aspect = self.aspect_order[0]
         self.current_index = 0
 
-    def get_company_profile(self, company_name: str) -> dict:
+    def get_company_profile(self, company_domain: str) -> dict:
         """
         Retrieves the company profile from a database using the company name. This method
         is responsible for establishing a connection to the database, querying the company's
         profile, and returning it.
 
         Parameters:
-            company_name (str): The name of the company whose profile is to be retrieved.
+            company_domain (str): The name of the company whose profile is to be retrieved.
 
         Returns:
             dict: A dictionary containing the company's profile information.
         """
         with DBHandler() as db_handler:
-            company_profile = db_handler.get_company_profile(company_name)
+            company_profile = db_handler.get_company_profile(company_domain)
         return company_profile
     
     def get_next_aspect(self) -> Optional[str]:
@@ -152,7 +152,7 @@ class Chatbot:
         """
         with DBHandler() as db_handler:
             updates = {self.current_aspect: self.aspects[self.current_aspect]}
-            db_handler.update_company_profile(self.company_name, updates)
+            db_handler.update_company_profile(self.company_domain, updates)
         interaction_chain.memory.clear()  # Clear interaction chain memory after update
 
     def run(self, user_input: str = "") -> str:

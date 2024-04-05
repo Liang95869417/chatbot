@@ -20,11 +20,11 @@ class DBHandler:
         # Close the MongoDB client connection here
         self.myclient.close()
 
-    def get_company_profile(self, company_name):
+    def get_company_profile(self, company_domain):
         """Retrieve a company's profile from the database."""
-        company_profile = self.col.find_one({"company_name": company_name})
+        company_profile = self.col.find_one({"company_domain": company_domain})
         return company_profile
 
-    def update_company_profile(self, company_name, updates):
+    def update_company_profile(self, company_domain, updates):
         """Update a company's profile in the database."""
-        self.col.update_one({"company_name": company_name}, {"$set": updates})
+        self.col.update_one({"company_domain": company_domain}, {"$set": updates})
